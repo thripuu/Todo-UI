@@ -1,0 +1,21 @@
+<div class="card" style="border:4px solid white;">
+  <div class="card-body" style="padding: 8px; margin-top: 8px;">
+   
+    <div>
+      <!-- title -->
+      <input type="text"
+             [(ngModel)]="todo.title"
+             (change)="updateTodo()"
+             class="input-label-lg"
+             maxlength="18" style="width: 80%"
+      />
+     
+    </div>
+    <!-- text -->
+    <textarea class="input-label"
+              style="width: 100%" rows="6"
+              [(ngModel)]="todo.text"
+              (change)="updateTodo()"></textarea>
+    
+  </div>
+</div>

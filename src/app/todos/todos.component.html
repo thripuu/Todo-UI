@@ -1,0 +1,67 @@
+<div class="container">
+  <!-- Todo menu -->
+  <div class="row" style="margin-top:12px;">
+    <div class="col-md-8">
+      <input type="text"
+             [(ngModel)]="searchText"
+             class="form-control"
+             style="width: 100%;"
+             placeholder="Search TODOS...">
+    </div>
+    <div class="col-md-4">
+      
+      <button type="button"
+              (click)="createTodo(selectedTodoList.id)"
+              [disabled]="selectedTodoList == null"
+              class="btn pull-right"
+              style="margin-left:12px;"><i class="fa fa-plus"></i> New TODO ITEM
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Todo content -->
+  <div class="row" style="margin-top: 28px;">
+    <!-- TodoList Menu -->
+    <div class="col-md-3">
+      <br>
+      <div class="list-group list-group-flush">
+        <a (click)="selectAllTodos()" routerLink="/todos" class="list-group-item list-group-item-action">
+          <i class="fa fa-home"></i>&nbsp;Home
+        </a>
+        <a (click)="selectAllTodos()" routerLink="/reports" class="list-group-item list-group-item-action">
+          <i class="fa fa-area-chart" aria-hidden="true"></i>&nbsp;Reports
+        </a>
+        <!-- TodoList List -->
+        <a *ngFor="let todoList of todoLists" (click)="selectTodoList(todoList)" class="list-group-item list-group-item-action">
+          <i class="fa fa-book"></i>&nbsp;
+          <input [(ngModel)]="todoList.title" (change)="updateTodoList(todoList)" type="text" class="input-label" style="width: 80%"/>
+          <a (click)="deleteTodoList(todolist)" class="pull-right text-danger">
+            <i class="fa fa-trash-o"></i>
+          </a>
+        </a>
+      </div>
+    </div>
+
+    <!-- Todos Panel -->
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Message if there are no todos -->
+          <h3 *ngIf="selectedTodoList != null">{{selectedTodoList.title}}</h3>
+          <h3 *ngIf="selectedTodoList == null">TODO DEMO</h3>
+          <p *ngIf="this.todos.length === 0">There are no todo's' to display in this TodoList :(</p>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Todo list -->
+        <app-todo *ngFor="let n of todos | todoSearch:searchText"
+                  [todo]="n"
+                  (todoUpdated)="updateTodo($event)"
+                  (todoDeleted)="deleteTodo($event)">
+        </app-todo>
+      </div>
+    </div>
+  </div>
+</div>
+
